@@ -4,5 +4,6 @@ import Container from './container/Container'
 import Logo from './Logo/Logo'
 import Button from './button/Button'
 import Input from './input/Input'
+import PostCard from './postcard/PostCard'
 
-export {Header, Footer, Container, Logo, Button, Input} 
+export {Header, Footer, Container, Logo, Button, Input, PostCard} 

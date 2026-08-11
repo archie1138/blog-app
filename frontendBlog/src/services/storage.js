@@ -41,17 +41,11 @@ class StorageService{
         }
     }
 
-    async getFilePreview(fileId){
-        try{
-            return await this.storage.getFilePreview({
-                bucketId : conf.appwriteBucketId,
-                fileId,
-            })
-        }
-        catch(e){
-            console.error("Appwrite service :: getFilePreview :: error " , e) ;
-            return null ;
-        }
+    getFilePreview(fileId){
+        return this.storage.getFilePreview({
+            bucketId : conf.appwriteBucketId,
+            fileId,
+        })
     }
 }
 

@@ -1,0 +1,21 @@
+import { Link } from "react-router"
+import storageService from "../../services/storage"
+
+
+
+function PostCard({$id, title, featuredImage}) {
+  return (
+    <Link to={`/post/${$id}`}>
+        <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-50">
+            <div className="w-full justify-center">
+                <img src={storageService.getFilePreview(featuredImage)} alt={title} className="rounded-xl"/>
+            </div>
+            <h2 className="text-xl font-bold">
+                {title}
+            </h2>
+        </div>
+    </Link>
+  )
+}
+
+export default PostCard
