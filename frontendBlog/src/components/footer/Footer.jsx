@@ -4,26 +4,26 @@ import {Logo} from '../index'
 function Footer() {
 
   return (
-    <footer className="bg-white dark:bg-black w-full">
+    <footer className="bg-zinc-50 dark:bg-zinc-950 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-12 border-t border-gray-200 dark:border-zinc-800">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">
                 Brand Logo
               </h3>
               <Logo />  
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+              <h4 className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-4">
                 Quick Links
               </h4>
               <ul className="space-y-3">
                 <li>
                   <Link
                     to="#"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                   >
                     About
                   </Link>
@@ -31,7 +31,7 @@ function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                   >
                     Help Center
                   </Link>
@@ -39,7 +39,7 @@ function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                   >
                     Contact
                   </Link>

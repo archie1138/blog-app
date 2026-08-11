@@ -3,7 +3,7 @@ import './App.css'
 import { useDispatch } from 'react-redux';
 import authService from './services/auth';
 import { login, logout } from './features/authSlice';
-import { Footer, Header } from './components';
+import { Container, Footer, Header } from './components';
 import {Outlet} from 'react-router'
 
 function App() {
@@ -36,11 +36,13 @@ function App() {
   else{
     return (
       <>
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
+        <Container >
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+        </Container>
       </>
     )
   }

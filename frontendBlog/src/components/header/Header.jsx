@@ -1,6 +1,7 @@
 
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router';
+import Button from '../button/Button';
 
 function Header() {
 
@@ -28,30 +29,37 @@ function Header() {
     {
       name : "Login",
       slug : "/login",
-      active : !authStatus
+      active : !authStatus,
+      type : "redirect"
     },
     {
       name : "Get Started",
       slug : "/get-started",
-      active : !authStatus
+      active : !authStatus,
+      type : "redirect"
     },
     {
       name : "Logout",
-      slug : "/logout",
-      active : authStatus
+      slug : "/",
+      active : authStatus,
+      type : "noRedirect"
     },
   ]
 
   return (
-    <div className="p-8 w-full bg-white dark:bg-black">
-      <nav className="bg-white dark:bg-black border border-gray-200 dark:border-zinc-800 rounded-lg shadow-sm">
+    <div className="p-8 w-full bg-zinc-50 dark:bg-zinc-950">
+      <nav className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16">
-            <div className="flex items-center gap-8 flex-1">
-              <div className="shrink-0">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Brand
-                </h2>
+            <div className="flex items-center gap-10 flex-1">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+                    <span className="font-bold text-white">B</span>
+                </div>
+
+                <span className="text-xl font-bold text-zinc-900 dark:text-zinc-50">
+                    Blogify
+                </span>
               </div>
               <div className="hidden md:flex md:items-center md:justify-between md:flex-1">
                   <ul className='flex items-center gap-8'>
@@ -61,7 +69,7 @@ function Header() {
                         className={ ({isActive}) => `inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 
                         ${isActive
                         ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                         }`}
                         to={item.slug}
                       >
@@ -71,21 +79,24 @@ function Header() {
                     )}
                   </ul>
                   <ul className='flex items-center gap-8'>
-                    {authItems.map( item => item.active ? 
+                    {authItems.map( (item) => item.active ? 
                     (<li key={item.slug}>
-                      <NavLink
-                        className={ ({isActive}) => 
-                          `inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 
-                          
-                          ${isActive
-                          ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-500"
-                          : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-                    }`}
-                        to={item.slug}
+                      {
+                        item.type === "link" ? 
+                        (<Button
+                        className={"border"}
                       >
                         {item.name}
-                      </NavLink>
-                      </li>) : null
+                      </Button>)
+                       :
+                       <Button
+                       className={"border"}
+                      >
+                        {item.name}
+                      </Button>
+                      }
+                      </li>) 
+                      : null
                     )}
                   </ul>
               </div>
