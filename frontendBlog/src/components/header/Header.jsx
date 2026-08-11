@@ -1,11 +1,23 @@
 
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router';
-import Button from '../button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router';
+import {Button} from '../index'
+import authService from '../../services/auth';
+import { logout } from '../../features/authSlice';
 
 function Header() {
 
   const authStatus = useSelector((state) => state.auth.status) 
+  const dispatch = useDispatch() ;
+  const navigate = useNavigate() ;
+
+  const onClickLogout  = () => {
+    authService.logout()
+    .then((success) => {
+      if(success)dispatch(logout()) ;
+    })
+  }
+
 
   const navItems = [
     {
@@ -30,19 +42,19 @@ function Header() {
       name : "Login",
       slug : "/login",
       active : !authStatus,
-      type : "redirect"
+      type : "link",
     },
     {
       name : "Get Started",
       slug : "/get-started",
       active : !authStatus,
-      type : "redirect"
+      type : "link",
     },
     {
       name : "Logout",
       slug : "/",
       active : authStatus,
-      type : "noRedirect"
+      type : "logout",
     },
   ]
 
@@ -83,17 +95,15 @@ function Header() {
                     (<li key={item.slug}>
                       {
                         item.type === "link" ? 
-                        (<Button
-                        className={"border"}
-                      >
-                        {item.name}
-                      </Button>)
-                       :
-                       <Button
-                       className={"border"}
-                      >
-                        {item.name}
-                      </Button>
+                        (<Button className={"border"} onClick={() =>{
+                          navigate(item.slug) 
+                        }}>
+                          {item.name}
+                        </Button>)
+                        :
+                        <Button className={"border"} onClick={onClickLogout}>
+                          {item.name}
+                        </Button>
                       }
                       </li>) 
                       : null
