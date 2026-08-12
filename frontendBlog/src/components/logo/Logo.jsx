@@ -1,9 +1,12 @@
-import React from 'react'
+import logoImage from '../../assets/BloglioLogo.png'
 
-function Logo() {
+function Logo({
+  width="100%" ,
+  className="",
+}) {
   return (
-    <div className='text-white'>
-        Logo IMG 🙌
+    <div className={`text-white ${className}`}>
+        <img src={logoImage} alt="Bloglio" width={width}/>
     </div>
   )
 }

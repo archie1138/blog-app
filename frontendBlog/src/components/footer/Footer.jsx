@@ -9,10 +9,7 @@ function Footer() {
         <div className="py-12 border-t border-gray-200 dark:border-zinc-800">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">
-                Brand Logo
-              </h3>
-              <Logo />  
+              <Logo className="w-40 h-auto"/>  
             </div>
 
             <div>

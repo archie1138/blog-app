@@ -5,6 +5,7 @@ import authService from './services/auth';
 import { login, logout } from './features/authSlice';
 import { Container, Footer, Header } from './components';
 import {Outlet} from 'react-router'
+import Login from './components/login/Login';
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
     authService.getCurrentUser()
     .then((userData) => {
       if(userData){
-        dispatch(login({userData})) ;
+        dispatch(login(userData)) ;
       }
       else{
         dispatch(logout())
@@ -40,6 +41,7 @@ function App() {
           <Header />
           <main>
             <Outlet />
+            <Login/>
           </main>
           <Footer />
         </Container>
