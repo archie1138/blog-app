@@ -1,33 +1,32 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import authService from '../../services/auth';
-import { login as storeLogin} from '../../features/authSlice';
-import { Link, useNavigate } from 'react-router';
-import {Button, Input, Logo} from '../index' 
-import {useForm} from 'react-hook-form'
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import authService from "../../services/auth"
+import { Link, useNavigate } from "react-router"
+import Logo from "../logo/Logo"
+import Input from "../input/Input"
+import Button from "../button/Button"
 
-function Login() {
-    const [error, setError] = useState("") ;
-    const dispatch = useDispatch()
-    const navigate = useNavigate() 
+
+function Signup() {
+
+    const [error, setError] = useState("")
     const {register, handleSubmit} = useForm()
+    const navigate = useNavigate() 
+    const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/ 
     const emailRegex = /^(?:(?:[\w`~!#$%^&*\-=+;:{}'|,?/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)+"))@(?:[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])$/ 
     const passwordRegex = /^((?=.*[\d])(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[a-z])(?=.*[^\w\d\s])).{7,30}$/
 
-    const onLoginSubmit = async(data) => {
-        setError("") 
+    
+    const onSignupSubmit = async(data) => {
+        setError("") ;
         try{
-            const session = await authService.login(data)
-            if(session){
-                const userData = await authService.getCurrentUser() ;
-                if(userData){
-                    dispatch(storeLogin(userData))
-                    navigate("/")
-                }
+            const user = await authService.createAccount(data) ;
+            if(user){
+                navigate("/login")
             }
         }
         catch(e){
-            setError(e.message)
+            setError(e.message) 
         }
     }
 
@@ -44,14 +43,24 @@ function Login() {
         </div>
         <div className='flex flex-col mb-4'>
             <h2 className='text-2xl font-bold leading-tight'>
-                Sign into your Account
+                Create your Bloglio account
             </h2>
-            <p className='text-xs'>to continue to Bloglio</p>
         </div>
         {error && <p className='text-red-600 mt-8'>{error}</p>}
         <div className='flex flex-col'>
-            <form onSubmit={handleSubmit(onLoginSubmit)}>
+            <form onSubmit={handleSubmit(onSignupSubmit)}>
                 {/* we still have to send ref to input field */}
+                <Input 
+                {...register("username", {
+                    required:true,
+                    validate:{
+                        matchPattern : (value) => usernameRegex.test(value) || "Enter a valid Username"
+                    }
+                })}
+                label={"Username"} 
+                placeholder={"Username..."} 
+                type={"text"} 
+                />
                 <Input 
                 {...register("email", {
                     required:true,
@@ -82,18 +91,18 @@ function Login() {
                     hoverTxtColor={"hover:bg-blue-800"}
                     className='w-2/12 max-w-lg text-center'
                     >
-                        Login
+                        Sign Up
                     </Button>
                 </div>
                 <div className='mt-2 text-base flex gap-2'>
                     <p className=''>
-                        Don't have an account?
+                        Already have an account?
                     </p>
                     <Link
                     className='text-blue-600 hover:underline hover:text-gray-400'
-                    to="/get-started"
+                    to="/login"
                     >
-                        Create one!
+                        Sign in
                     </Link>
                 </div>
             </form>
@@ -102,4 +111,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Signup 

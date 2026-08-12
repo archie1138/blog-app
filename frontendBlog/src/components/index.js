@@ -5,5 +5,6 @@ import Logo from './logo/Logo'
 import Button from './button/Button'
 import Input from './input/Input'
 import PostCard from './postcard/PostCard'
+import Signup from './signup/Signup.jsx'
 
-export {Header, Footer, Container, Logo, Button, Input, PostCard} 
+export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup} 

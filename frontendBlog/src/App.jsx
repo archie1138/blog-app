@@ -3,9 +3,8 @@ import './App.css'
 import { useDispatch } from 'react-redux';
 import authService from './services/auth';
 import { login, logout } from './features/authSlice';
-import { Container, Footer, Header } from './components';
+import { Container, Footer, Header, Signup } from './components';
 import {Outlet} from 'react-router'
-import Login from './components/login/Login';
 
 function App() {
 
@@ -41,7 +40,7 @@ function App() {
           <Header />
           <main>
             <Outlet />
-            <Login/>
+            <Signup/>
           </main>
           <Footer />
         </Container>
