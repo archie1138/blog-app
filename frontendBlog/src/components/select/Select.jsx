@@ -4,9 +4,8 @@ function Select({
     label, 
     options, 
     className="",
-    ref,
     ...props
-}) {
+}, ref) {
     const id = useId() ;
   return (
     <div className="w-full">

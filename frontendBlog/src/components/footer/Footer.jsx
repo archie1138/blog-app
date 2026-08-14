@@ -4,7 +4,7 @@ import {Logo} from '../index'
 function Footer() {
 
   return (
-    <footer className="bg-zinc-50 dark:bg-zinc-950 w-full">
+    <footer className="bg-zinc-50 dark:bg-zinc-950 w-full mt-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-12 border-t border-gray-200 dark:border-zinc-800">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

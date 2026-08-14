@@ -22,7 +22,7 @@ function Signup() {
         try{
             const user = await authService.createAccount(data) ;
             if(user){
-                navigate("/login")
+                navigate("/")
             }
         }
         catch(e){
