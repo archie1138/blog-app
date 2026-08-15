@@ -9,11 +9,46 @@ import Home from './pages/Home/Home.jsx'
 import SignUp from './pages/SignUp.jsx'
 import Login from './pages/Login.jsx'
 import AddPost from './pages/AddPost.jsx'
+import { Protected } from './components/index.js'
+import AllPosts from './pages/AllPosts.jsx'
+import EditPost from './pages/EditPost.jsx'
+import Post from './pages/Post.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     // here we will create our routes
     <Route path={'/'} element={<App/>} >
+      <Route path={''} element={<Home/>} />
+      <Route path={'/get-started'} element={(
+        <Protected authentication={false}>
+          <SignUp/>
+        </Protected>
+      )} />
+      <Route path={'/login'} element={(
+        <Protected authentication={false}>
+          <Login/>
+        </Protected>
+      )} />
+      <Route path={'/all-posts'} element={(
+        <Protected authentication={true}>
+          <AllPosts/>
+        </Protected>
+      )} />
+      <Route path={'/add-post'} element={(
+        <Protected authentication={true}>
+          <AddPost/>
+        </Protected>
+      )} />
+      <Route path={'/edit-post/:slug'} element={(
+        <Protected authentication={true}>
+          <EditPost/>
+        </Protected>
+      )} />
+      <Route path={'/post/:slug'} element={(
+        <Protected authentication={true}>
+          <Post/>
+        </Protected>
+      )} />
     </Route>
   )
 )
