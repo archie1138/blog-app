@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
+import { Button } from '../../components'
 
 function LandingPage() {
 
@@ -62,11 +63,14 @@ function LandingPage() {
                 ✍️ Start writing...
               </span>
 
-              <button 
+              <Button 
               onClick={() => {navigate("/get-started")}}
-              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-mono hover:bg-blue-700 transition">
+              bgColor={"bg-blue-600"}
+              txtColor={"text-white"}
+              hoverColor={"hover:bg-blue-700"}
+              className="px-4 py-2 font-mono">
                 Publish →
-              </button>
+              </Button>
 
             </div>
 
