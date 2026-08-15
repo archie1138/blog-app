@@ -9,5 +9,7 @@ import Signup from './signup/Signup.jsx'
 import RTE from './real-time-text-editor/RTE.jsx'
 import PostForm from './post-form/PostForm.jsx'
 import Select from './select/Select.jsx'
+import Protected from './authlayout/AuthLayout.jsx'
+import Login from './login/Login.jsx'
 
-export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup, RTE, PostForm, Select} 
+export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup, RTE, PostForm, Select, Protected, Login} 
