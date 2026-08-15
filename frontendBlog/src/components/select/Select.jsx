@@ -1,14 +1,15 @@
-import React, { useId } from "react"
+import { useId } from "react"
 
 function Select({
     label, 
     options, 
     className="",
+    ref,
     ...props
-}, ref) {
+}) {
     const id = useId() ;
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
         {label && <label
         className="inline-block mb-1 pl-1"
         htmlFor={id}
@@ -17,7 +18,7 @@ function Select({
         </label>
         }
         <select 
-        className={`${className}`}
+        className={`p-1 border w-fit rounded-lg ${className}`}
         {...props}
         id={id}
         ref={ref}
@@ -32,4 +33,4 @@ function Select({
   )
 }
 
-export default React.forwardRef(Select)
+export default Select

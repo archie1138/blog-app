@@ -6,5 +6,8 @@ import Button from './button/Button'
 import Input from './input/Input'
 import PostCard from './postcard/PostCard'
 import Signup from './signup/Signup.jsx'
+import RTE from './real-time-text-editor/RTE.jsx'
+import PostForm from './post-form/PostForm.jsx'
+import Select from './select/Select.jsx'
 
-export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup} 
+export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup, RTE, PostForm, Select} 
