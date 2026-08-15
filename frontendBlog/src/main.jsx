@@ -13,6 +13,7 @@ import { Protected } from './components/index.js'
 import AllPosts from './pages/AllPosts.jsx'
 import EditPost from './pages/EditPost.jsx'
 import Post from './pages/Post.jsx'
+import MyPosts from './pages/MyPosts.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,11 @@ const router = createBrowserRouter(
       <Route path={'/post/:slug'} element={(
         <Protected authentication={true}>
           <Post/>
+        </Protected>
+      )} />
+      <Route path={'/my-posts/:slug'} element={(
+        <Protected authentication={true}>
+          <MyPosts/>
         </Protected>
       )} />
     </Route>

@@ -48,7 +48,7 @@ export default function AuthenticatedPage() {
                 Have something to say?
             </p>
             <Link
-             to="#"
+             to="/add-post"
              className="px-6 translate-x-2 text-zinc-500 underline cursor-pointer hover:text-zinc-400">
                 Create a post → 
             </Link>
@@ -74,7 +74,7 @@ export default function AuthenticatedPage() {
                 <p>{posts?.total ? posts?.total : 0} Posts</p>
             </div>
             <Link
-                to="#"
+                to={`/my-posts/${user.$id}`}
                 className="px-6 text-zinc-500 underline cursor-pointer hover:text-zinc-400"
             >
                 View all my posts →
