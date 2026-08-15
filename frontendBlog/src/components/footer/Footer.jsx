@@ -49,7 +49,7 @@ function Footer() {
         <div className="py-6 border-t border-gray-200 dark:border-zinc-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              © 2024 YourBrand. All rights reserved.
+              © 2026 Bloglio. All rights reserved.
             </p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link

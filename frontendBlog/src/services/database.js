@@ -97,6 +97,22 @@ class DatabaseService{
             return null ;
         }
     }
+
+    async getUserPosts(userId){
+        try{
+            return await this.tablesDB.listRows({
+                databaseId : conf.appwriteDatabaseId,
+                tableId : conf.appwriteTableId,
+                queries : [
+                    Query.equal("userId", [userId])
+                ]
+            })
+        }
+        catch(e){
+            console.error("Appwrite service :: getUserPosts :: error " , e) ;
+            return null ;
+        }
+    }
 }
 
 const databaseService = new DatabaseService() ;

@@ -28,7 +28,7 @@ function PostForm({post}) {
         setError("")
         try{
             if(post){
-                const file = data.image?.[0] ? await storageService.uploadFile(data.image[0]) : null 
+                const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null 
                 if(file){
                     await storageService.deleteFile(post.featuredImage)
                 }
@@ -42,16 +42,17 @@ function PostForm({post}) {
                 }
             }
             else{
-                const file = data.image?.[0] ? await storageService.uploadFile(data.image[0]) : null 
+                const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null 
 
-                const dbPost = await databaseService.createPost({
-                    ...data,
-                    featuredImage : file ? file.$id : null,
-                    userId : userData.$id, 
-                })
-
-                if(dbPost){
-                    navigate(`/post/${dbPost.$id}`)
+                if(file){
+                    const dbPost = await databaseService.createPost({
+                        ...data,
+                        featuredImage : file.$id,
+                        userId : userData.$id, 
+                    })
+                    if(dbPost){
+                        navigate(`/post/${dbPost.$id}`)
+                    }
                 }
             }
         }
@@ -123,7 +124,9 @@ function PostForm({post}) {
                     label={"Cover Image"}
                     type={"file"}
                     accept={"image/png, image/jpg, image/jpeg, image/gif"}
-                    {...register("image")}
+                    {...register("image", {
+                        required : true
+                    })}
                 />
                 {post && (
                     <div className="w-full mb-4">

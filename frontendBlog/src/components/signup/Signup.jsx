@@ -51,14 +51,14 @@ function Signup() {
             <form onSubmit={handleSubmit(onSignupSubmit)}>
                 {/* we still have to send ref to input field */}
                 <Input 
-                {...register("username", {
+                {...register("name", {
                     required:true,
                     validate:{
                         matchPattern : (value) => usernameRegex.test(value) || "Enter a valid Username"
                     }
                 })}
-                label={"Username"} 
-                placeholder={"Username..."} 
+                label={"Name"} 
+                placeholder={"Name..."} 
                 type={"text"} 
                 />
                 <Input 
