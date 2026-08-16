@@ -25,7 +25,10 @@ function Signup() {
             }
         }
         catch(e){
-            setError(e.message) 
+            if(e.code == 409){
+                setError("A user with the same email already exists.")
+            }
+            else setError(e.message) 
         }
     }
 
