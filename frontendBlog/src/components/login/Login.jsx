@@ -10,9 +10,8 @@ function Login() {
     const [error, setError] = useState("") ;
     const dispatch = useDispatch()
     const navigate = useNavigate() 
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit, formState : {errors} } = useForm()
     const emailRegex = /^(?:(?:[\w`~!#$%^&*\-=+;:{}'|,?/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)+"))@(?:[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])$/ 
-    const passwordRegex = /^((?=.*[\d])(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[a-z])(?=.*[^\w\d\s])).{7,30}$/
 
     const onLoginSubmit = async(data) => {
         setError("") 
@@ -48,13 +47,13 @@ function Login() {
             </h2>
             <p className='text-xs'>to continue to Bloglio</p>
         </div>
-        {error && <p className='text-red-600 mt-8'>{error}</p>}
+        {error && <p className='text-red-600 m-4'>{error}</p>}
         <div className='flex flex-col'>
             <form onSubmit={handleSubmit(onLoginSubmit)}>
                 {/* we still have to send ref to input field */}
                 <Input 
                 {...register("email", {
-                    required:true,
+                    required:"Email is required",
                     validate:{
                         matchPattern : (value) => emailRegex.test(value) || "Email address must be a valid address"
                     }
@@ -63,17 +62,24 @@ function Login() {
                 placeholder={"Email address..."} 
                 type={"email"} 
                 />
+                {errors.email && (
+                    <p className='text-red-600 m-2'>
+                        • {errors.email.message}
+                    </p>
+                )}
                 <Input 
                 {...register("password", {
-                    required : true ,
-                    validate : {
-                        matchPattern : (value) => passwordRegex.test(value) || "Password must be a valid password"
-                    }
+                    required : "Password is required" ,
                 })}
                 label={"Password"} 
                 placeholder={"Password..."} 
                 type={"password"} 
                 />
+                {errors.password && (
+                    <p className='text-red-600 m-2'>
+                        • {errors.password.message}
+                    </p>
+                )}
                 <div className='flex justify-end'>
                     <Button 
                     type={"submit"}

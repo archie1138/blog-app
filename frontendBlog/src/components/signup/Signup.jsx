@@ -10,11 +10,11 @@ import Button from "../button/Button"
 function Signup() {
 
     const [error, setError] = useState("")
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit, formState : { errors }} = useForm({
+        criteriaMode : "all"
+    })
     const navigate = useNavigate() 
     const emailRegex = /^(?:(?:[\w`~!#$%^&*\-=+;:{}'|,?/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?/.()<>[\] @]|\\"|\\\\)+"))@(?:[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])$/ 
-    const passwordRegex = /^((?=.*[\d])(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[a-z])(?=.*[^\w\d\s])).{7,30}$/
-
     
     const onSignupSubmit = async(data) => {
         setError("") ;
@@ -45,21 +45,25 @@ function Signup() {
                 Create your Bloglio account
             </h2>
         </div>
-        {error && <p className='text-red-600 mt-8'>{error}</p>}
+        {error && <p className='text-red-600 m-4'>{error}</p>}
         <div className='flex flex-col'>
             <form onSubmit={handleSubmit(onSignupSubmit)}>
-                {/* we still have to send ref to input field */}
                 <Input 
                 {...register("name", {
-                    required:true,
+                    required:"Name is required",
                 })}
                 label={"Name"} 
                 placeholder={"Name..."} 
                 type={"text"} 
                 />
+                {errors.name && (
+                    <p className="text-red-600 m-2">
+                        • {errors.name.message}
+                    </p>
+                )}
                 <Input 
                 {...register("email", {
-                    required:true,
+                    required:"Email is required",
                     validate:{
                         matchPattern : (value) => emailRegex.test(value) || "Email address must be a valid address"
                     }
@@ -68,17 +72,35 @@ function Signup() {
                 placeholder={"Email address..."} 
                 type={"email"} 
                 />
+                {errors.email && (
+                    <p className="text-red-600 m-2">
+                        • {errors.email.message}
+                    </p>
+                )}
                 <Input 
                 {...register("password", {
-                    required : true ,
+                    required : "Password is required" ,
                     validate : {
-                        matchPattern : (value) => passwordRegex.test(value) || "Password must be a valid password"
+                        minLength : (value) => value.length >= 6 || "Password must contain at least 6 characters",
+                        hasLowerCase : (value) => /[a-z]/.test(value) || "Password must contain a lowercase letter",
+                        hasUpperCase : (value) => /[A-Z]/.test(value) || "Password must contain an uppercase letter",
+                        hasNumber : (value) => /\d/.test(value) || "Password must contain a number",
+                        hasSpecial : (value) => /[^\w\d\s]/.test(value) || "Password must contain a special character",
                     }
                 })}
                 label={"Password"} 
                 placeholder={"Password..."} 
                 type={"password"} 
                 />
+                {errors.password && (
+                    <div className="text-red-600 m-2">
+                        {
+                            Object.entries(errors.password?.types).map(([key, message]) => (
+                                <p key={key}>• {message}</p>
+                            ))
+                        }
+                    </div>
+                )}
                 <div className='flex justify-end'>
                     <Button 
                     type={"submit"}

@@ -37,7 +37,7 @@ export default function AuthenticatedPage() {
             <p className='text-3xl md:text-4xl font-bold font-mono text-center'>
                 Welcome back, {user?.name} 👋
             </p>
-            <p className='font-mono max-w-xl'>
+            <p className='font-mono max-w-xl text-center'>
                 What are you thinking about today?  
             </p>
         </div>

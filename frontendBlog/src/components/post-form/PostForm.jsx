@@ -11,7 +11,7 @@ import Button from "../button/Button"
 
 
 function PostForm({post}) {
-    const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
+    const {register, handleSubmit, watch, setValue, control, getValues, formState : { errors }} = useForm({
         defaultValues:{
             title : post?.title || "",
             slug : post?.slug || "",
@@ -101,7 +101,7 @@ function PostForm({post}) {
     <div className="flex flex-col justify-center mx-auto w-full max-w-2/3 border 
     bg-white dark:bg-zinc-900  border-zinc-200 dark:border-zinc-800
     text-zinc-900 dark:text-zinc-50 rounded-lg p-4 gap-2">
-        {error && <p className='text-red-600 mt-8'>{error}</p>}
+        {error && <p className='text-red-600 m-4'>{error}</p>}
         <form onSubmit={handleSubmit(onFormSubmit)} className="flex flex-wrap">
             <div className="w-2/3 px-2">
                 <Input
@@ -115,10 +115,15 @@ function PostForm({post}) {
                     label={"Slug"}
                     placeholder={"Enter post slug here..."}
                     {...register("slug", {
-                        required : true,
+                        required : "slug must be unique",
                     })}
                     readOnly
                 />
+                {errors.slug && (
+                    <p className='text-red-600 m-2'>
+                        • {error.slug.message}
+                    </p>
+                )}
                 <RTE 
                     name={"content"}
                     label={"Content"}
