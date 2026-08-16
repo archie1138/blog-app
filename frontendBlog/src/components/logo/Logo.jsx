@@ -1,4 +1,4 @@
-import logoImage from '../../assets/BloglioLogo.png'
+import logoImage from '../../assets/bloglioLogo.png'
 
 function Logo({
   width="100%" ,
