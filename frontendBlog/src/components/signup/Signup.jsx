@@ -84,7 +84,8 @@ function Signup() {
                 {...register("password", {
                     required : "Password is required" ,
                     validate : {
-                        minLength : (value) => value.length >= 6 || "Password must contain at least 6 characters",
+                        minLength : (value) => value.length >= 8 || "Password must contain at least 8 characters",
+                        maxLength : (value) => value.length <= 256|| "Password must contain at most 256 characters",
                         hasLowerCase : (value) => /[a-z]/.test(value) || "Password must contain a lowercase letter",
                         hasUpperCase : (value) => /[A-Z]/.test(value) || "Password must contain an uppercase letter",
                         hasNumber : (value) => /\d/.test(value) || "Password must contain a number",
