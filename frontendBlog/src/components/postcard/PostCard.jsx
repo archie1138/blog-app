@@ -6,11 +6,11 @@ import storageService from "../../services/storage"
 function PostCard({post}) {
   return (
     <Link to={`/post/${post.slug}`}>
-        <div className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-50">
-            <div className="w-full justify-center">
+        <div className="w-full flex flex-col bg-white dark:bg-zinc-900 border-2 rounded-xl dark:border-blue-500 text-zinc-900 dark:text-zinc-50 p-2">
+            <div className="w-full">
                 <img src={storageService.getFilePreview(post.featuredImage)} alt={post.title} className="rounded-xl"/>
             </div>
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl text-center font-bold">
                 {post.title}
             </h2>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Link } from "react-router";
 import databaseService from "../../services/database";
-import { Button, PostCard } from "../../components";
+import { PostCard } from "../../components";
 
 export default function AuthenticatedPage() {
 
@@ -55,10 +55,12 @@ export default function AuthenticatedPage() {
         </div>
 
         {/* User Posts Section */}
-        <div className='flex flex-col w-full max-w-4xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm px-6 py-4'>
-            <p className="font-mono text-xl max-w-xl px-6 mb-4">
-                Your Posts
-            </p>
+        <div className='flex flex-col gap-2 w-full max-w-4xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm px-6 py-4'>
+            <div className="flex items-center gap-2 px-4 py-1 border-b border-zinc-200 dark:border-zinc-700">
+                <span className="ml-3 font-mono text-2xl">
+                    Your Posts
+                </span>
+            </div>
             {posts?.rows?.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-6">
                     {posts?.rows.slice(0, 3).map(post => (
@@ -70,7 +72,7 @@ export default function AuthenticatedPage() {
                     You haven't written any posts yet.
                 </p>
             )}
-            <div className="font-mono px-6">
+            <div className="font-mono px-6 mt-2">
                 <p>{posts?.total ? posts?.total : 0} Posts</p>
             </div>
             <Link

@@ -21,7 +21,7 @@ function Signup() {
         try{
             const user = await authService.createAccount(data) ;
             if(user){
-                navigate("/")
+                navigate("/login")
             }
         }
         catch(e){

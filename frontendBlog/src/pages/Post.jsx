@@ -34,7 +34,7 @@ function Post() {
 
     const deletePost = () => {
         async function remove(){
-            const result = await databaseService.deletePost(slug)
+            const result = await databaseService.deletePost(post.$id)
             if(result){
                 await storageService.deleteFile(result.featuredImage)
                 navigate("/")
@@ -47,16 +47,16 @@ function Post() {
     }
 
   return ( post ? 
-    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
-        <div className="w-full flex justify-around mb-4 relative border rounded-xl p-2">
+    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm px-6 py-4">
+        <div className="w-full flex flex-col mb-4 relative  border rounded-xl p-2">
             <img 
                 src={storageService.getFilePreview(post.featuredImage)} 
                 alt={post.title} 
-                className="rounded-xl"
+                className="max-h-125 max-w-4xl  w-full rounded-xl"
             />
             { (isAuthor &&
-                <div className="flex felx-wrap gap-4"> 
-                    <Link to="#">
+                <div className="flex flex-wrap gap-4 mt-5"> 
+                    <Link to={`/edit-post/${slug}`}>
                         <Button 
                         bgColor={"bg-blue-700"}
                         txtColor={"text-zinc-300"}
@@ -79,7 +79,7 @@ function Post() {
             )}
         </div>
         <div className="w-full mb-6">
-            <h1 className="text-2xl font-bold">{post.title}</h1>
+            <h1 className="text-5xl text-zinc-700 dark:text-amber-50 font-bold">{post.title}</h1>
         </div>
         <div className="browser-css">
             {parse(post.content)}
