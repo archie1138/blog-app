@@ -1,4 +1,4 @@
-import {Client, Query, TablesDB} from 'appwrite'
+import {Client, Query, TablesDB, ID} from 'appwrite'
 import conf from '../conf/conf.js'
 
 class DatabaseService{
@@ -17,12 +17,13 @@ class DatabaseService{
             return await this.tablesDB.createRow({
                 databaseId : conf.appwriteDatabaseId,
                 tableId : conf.appwriteTableId,
-                rowId : slug,
+                rowId : ID.unique(),
                 data : {
                     title,
                     content,
                     featuredImage,
                     status,
+                    slug,
                     userId
                 }
             })
@@ -33,17 +34,18 @@ class DatabaseService{
         }
     }
 
-    async updatePost({slug, title, content, featuredImage, status}){
+    async updatePost({slug, title, content, featuredImage, status, $id}){
         try{
             return await this.tablesDB.updateRow({
                 databaseId: conf.appwriteDatabaseId,
                 tableId: conf.appwriteTableId,
-                rowId: slug,
+                rowId: $id,
                 data : {
                     title,
                     content,
                     featuredImage,
-                    status
+                    status,
+                    slug
                 }
             })
         }
@@ -53,12 +55,12 @@ class DatabaseService{
         }
     }
 
-    async deletePost(slug){
+    async deletePost($id){
         try{
             await this.tablesDB.deleteRow({
                 databaseId: conf.appwriteDatabaseId,
                 tableId: conf.appwriteTableId,
-                rowId: slug,
+                rowId: $id,
             })
             return true ;
         }
@@ -70,11 +72,14 @@ class DatabaseService{
 
     async getPost(slug){
         try{
-            return await this.tablesDB.getRow({
+            const result = await this.tablesDB.listRows({
                 databaseId: conf.appwriteDatabaseId,
                 tableId: conf.appwriteTableId,
-                rowId: slug,
+                queries : [
+                    Query.equal("slug", [slug]) 
+                ],
             })
+            return result.rows.length > 0 ? result.rows[0] : null 
         }
         catch(e){
             console.error("Appwrite service :: getPost :: error " , e) ;

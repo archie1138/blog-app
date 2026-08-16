@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
@@ -11,10 +11,10 @@ import Button from "../button/Button"
 
 
 function PostForm({post}) {
-    const {register, handleSubmit, watch, setValue, control, getValues, subscribe} = useForm({
+    const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
         defaultValues:{
             title : post?.title || "",
-            slug : post?.$id || "",
+            slug : post?.slug || "",
             content : post?.content || "",
             status : post?.status || "active",
         }
@@ -23,6 +23,7 @@ function PostForm({post}) {
     const [error, setError] = useState("")
     const navigate = useNavigate() 
     const userData = useSelector(state => state.auth.userData)
+    const slugCode = useRef(post ? post.slug.split("-").pop() : crypto.randomUUID().slice(0, 4))
 
     const onFormSubmit = async(data) => {
         setError("")
@@ -38,7 +39,7 @@ function PostForm({post}) {
                 })
 
                 if(dbPost){
-                    navigate(`/post/${dbPost.$id}`)
+                    navigate(`/post/${dbPost.slug}`)
                 }
             }
             else{
@@ -51,23 +52,30 @@ function PostForm({post}) {
                         userId : userData.$id, 
                     })
                     if(dbPost){
-                        navigate(`/post/${dbPost.$id}`)
+                        navigate(`/post/${dbPost.slug}`)
                     }
                 }
             }
         }
         catch(e){
-            setError(e.message)
+            if(e.code === 409){
+                setError("A post with this slug already exists.")
+            }
+            else setError(e.message)
         }
     }
 
+
     const slugTransform = useCallback((value) => {
         if(value && typeof value === "string"){
-            return value.trim()
+            const temp =  value.trim()
             .toLowerCase()
-            .replace(/[^a-zA-Z0-9\s-]/g, "")
+            .replace(/[^a-z0-9\s-]/g, "")
             .replace(/\s+/g, "-")
             .replace(/-+/g, "-")
+            .replace(/^-+|-+$/g, "")
+
+            return `${temp}-${slugCode.current}`
         }
         else return ""
     }, [])
@@ -108,9 +116,7 @@ function PostForm({post}) {
                     {...register("slug", {
                         required : true,
                     })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate : true})
-                    }}
+                    readOnly
                 />
                 <RTE 
                     name={"content"}
@@ -125,7 +131,7 @@ function PostForm({post}) {
                     type={"file"}
                     accept={"image/png, image/jpg, image/jpeg, image/gif"}
                     {...register("image", {
-                        required : true
+                        required : !post
                     })}
                 />
                 {post && (
