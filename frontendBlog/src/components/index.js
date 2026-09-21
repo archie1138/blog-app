@@ -11,5 +11,6 @@ import PostForm from './post-form/PostForm.jsx'
 import Select from './select/Select.jsx'
 import Protected from './authlayout/AuthLayout.jsx'
 import Login from './login/Login.jsx'
+import ThemeBtn from './themeBtn/ThemeBtn.jsx'
 
-export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup, RTE, PostForm, Select, Protected, Login} 
+export {Header, Footer, Container, Logo, Button, Input, PostCard, Signup, RTE, PostForm, Select, Protected, Login, ThemeBtn} 

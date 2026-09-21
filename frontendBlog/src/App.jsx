@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import authService from './services/auth';
 import { login, logout } from './features/authSlice';
 import { Container, Footer, Header } from './components';
@@ -10,8 +10,14 @@ import {Outlet} from 'react-router'
 function App() {
 
   const [loading, setLoading] = useState(true) ;
+  const theme = useSelector(state => state.theme.themeMode)
 
   const dispatch = useDispatch() ;
+
+  useEffect(() => {
+    document.documentElement.classList.remove("dark", "light")
+    document.documentElement.classList.add(theme)
+  }, [theme])
 
   useEffect(() => {
     authService.getCurrentUser()

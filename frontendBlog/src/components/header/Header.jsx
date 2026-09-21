@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router';
-import {Button, Logo} from '../index'
+import {Button, Logo, ThemeBtn} from '../index'
 import authService from '../../services/auth';
 import { logout } from '../../features/authSlice';
 import { useState } from 'react';
@@ -90,17 +90,26 @@ function Header() {
                   )}
                 </ul>
                 <ul className='flex items-center gap-8'>
+                  <ThemeBtn/>
                   {authItems.map( (item) => item.active ? 
                   (<li key={item.slug}>
                     {
                       item.type === "link" ? 
-                      (<Button className={"border"} onClick={() =>{
+                      (<Button
+                        bgColor='bg-blue-700 dark:bg-zinc-950'
+                        txtColor='text-white dark:text-gray-400'
+                        hoverTxtColor="hover:bg-blue-800 dark:hover:bg-zinc-950 dark:hover:text-gray-300"
+                        className={"border"} onClick={() =>{
                         navigate(item.slug) 
                       }}>
                         {item.name}
                       </Button>)
                       :
-                      <Button className={"border"} onClick={onClickLogout}>
+                      <Button 
+                        bgColor='bg-blue-700 dark:bg-zinc-950'
+                        txtColor='text-white dark:text-gray-400'
+                        hoverTxtColor="hover:bg-blue-800 dark:hover:bg-zinc-950 dark:hover:text-gray-300"
+                        className={"border"} onClick={onClickLogout}>
                         {item.name}
                       </Button>
                     }
@@ -111,7 +120,9 @@ function Header() {
               </div>
               
               <div className='md:hidden relative ml-auto'>
+              
                   {/* Mobile Navigation bar */}
+                  <ThemeBtn/>
                   <button
                     className='p-2 text-zinc-700 dark:text-zinc-200
                    hover:bg-zinc-100 dark:hover:bg-zinc-800
